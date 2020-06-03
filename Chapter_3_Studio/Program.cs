@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Chapter_3_Studio
 {
@@ -8,25 +9,33 @@ namespace Chapter_3_Studio
         {
             //string myString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc accumsan sem ut ligula scelerisque sollicitudin. Ut at sagittis augue. Praesent quis rhoncus justo. Aliquam erat volutpat. Donec sit amet suscipit metus, non lobortis massa. Vestibulum augue ex, dapibus ac suscipit vel, volutpat eget massa. Donec nec velit non ligula efficitur luctus.";
 
+            //Char.IsLetter(myChar);
+
             Console.WriteLine("Enter a sentence:");
             string myString = Console.ReadLine().ToLower();
 
-            //char[] charactersInString = myString.ToCharArray();
+            char[] myArray = myString.ToCharArray();
 
-            while (myString.Length > 0)
+            Dictionary<char, int> myDictionary = new Dictionary<char, int>();
+
+            foreach (char myChar in myArray)
             {
-                Console.Write(myString[0] + " : ");
-                int count = 0;
-                for (int i = 0; i < myString.Length; i++)
+                if (Char.IsLetter(myChar))
                 {
-                    if (myString[0] == myString[i])
+                    if (myDictionary.ContainsKey(myChar))
                     {
-                        count++;
+                        myDictionary[myChar]++;
+                    }
+                    else
+                    {
+                        myDictionary.Add(myChar, 1);
                     }
                 }
-                Console.WriteLine(count);
-                myString = myString.Replace(myString[0].ToString(), string.Empty);
             }
-        }
+            foreach (char key in myDictionary.Keys)
+            {
+                    Console.WriteLine(key + ": " + myDictionary[key]);
+                }
+            }
     }
 }
